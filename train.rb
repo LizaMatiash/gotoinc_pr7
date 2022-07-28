@@ -3,10 +3,9 @@
 # fff
 class Train
   include Company
-  attr_reader :speed, :size, :route, :station, :number
-  attr_writer :speed, :size, :route, :station, :number
+  attr_accessor :speed, :size, :route, :station, :number
 
-  VALIDATION = /^[a-z 0-9]{3}-?[a-z 0-9]{2}$/i
+  VALIDATION = /^[a-z 0-9]{3}-?[a-z 0-9]{2}$/i.freeze
 
   @@all = []
   def initialize(number)
@@ -16,7 +15,7 @@ class Train
     @speed = 0
     @route = nil
     @station = nil
-    @@all << number
+    @@all << self
     puts "Train #{number} was created!"
   end
 
@@ -59,7 +58,7 @@ class Train
   end
 
   def self.find(num)
-    puts @@all.include?(num) ? "Train #{num} founded" : nil
+    @@all.each { |train| puts "Train #{num} founded" if train.number == num } || nil
   end
 
   def valid?
@@ -70,13 +69,14 @@ class Train
 
   def all_vagons(&show_vagons)
     puts "All vagons in #{number} train are:"
-    size.each {|vagon| show_vagons.call(vagon)}
+    size.each { |vagon| show_vagons.call(vagon) }
   end
 
   protected
 
   def validate!
     raise "Number can't be that" if number !~ VALIDATION
+
     true
   end
 end

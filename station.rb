@@ -13,8 +13,7 @@ class Station
     @name = name
     validate!
     @train = {}
-    @@all << name
-    # @show_stations = proc { |st| puts st }
+    @@all << self
     puts "Station #{name} was created!"
   end
 
@@ -47,8 +46,12 @@ class Station
     train.delete(number)
   end
 
-  def self.all_stations
-    @@all.each { |station| puts station }
+  def self.show_all_stations
+    @@all.each { |station| puts station.name }
+  end
+
+  def self.all
+    @@all
   end
 
   def valid?
@@ -56,8 +59,6 @@ class Station
   rescue
     false
   end
-
-
 
   protected
 

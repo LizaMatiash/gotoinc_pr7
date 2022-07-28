@@ -4,9 +4,16 @@
 class CargoTrain < Train
   attr_accessor :type
 
+  @@all_cargo_trains = []
+
   def initialize(number)
     super
     @type = 'cargo'
+    @@all_cargo_trains << self
+  end
+
+  def self.all_cargo_trains
+    @@all_cargo_trains
   end
 
   def hook(vagon)

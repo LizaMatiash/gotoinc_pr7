@@ -3,6 +3,5 @@
 # fff
 class Vagon
   include Company
-  def initialize(a)
-  end
+  def initialize(name) end
 end
